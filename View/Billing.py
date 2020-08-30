@@ -198,5 +198,3 @@ class BillingView:
         self.qty_entry.delete(0, END)
         self.particular_entry.delete(0, END)
         self.rate_entry.delete(0, END)
-
-
