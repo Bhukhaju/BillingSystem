@@ -1,5 +1,4 @@
 from classes.Connection import Connector
-from tkinter import messagebox
 from datetime import datetime
 from View.Generate import Bill_Generate
 
@@ -47,5 +46,5 @@ class Billings:
                 (invoice_id, values[1], values[2], values[3])
             )
         self.db.my_connection.commit()
-        # self.db.my_connection.close()
+        self.db.my_connection.close()
         Bill_Generate(invoice_id)

@@ -1,24 +1,40 @@
+"""Import testing"""
 import unittest
+
+"""Import python file"""
+from View.ListBill import ListBillView
 from classes.Login import *
-# from classes.Item import *
+from classes.Register import Register
+
+
+"""Create Class for testing """
 class MyTest(unittest.TestCase):
-    # def test_add(self):
-    #     op = Operation()
-    #     actual_result = op.add(5, 6)
-    #     expected_result = 11
-    #     self.assertEqual(expected_result, actual_result)
-    # def test_multiply(self):
-    #     op = Operation()
-    #     actual_result = op.multiply(5, 6)
-    #     expected_result = 30
-    #     self.assertEqual(expected_result, actual_result)
-    # def test_check_even(self):
-    #     op = Operation()
-    #     actual_result = op.check_even(5)
-    #     # expected_result = False
-    #     # self.assertEqual(expected_result, actual_result)
-    #     self.assertFalse(actual_result)
+    """Function of login verify testing"""
     def test_login(self):
         login = Login()
-        actual_result = login.login_test('a','a')
+        actual_result = login.login_test('a', 'a')
         self.assertTrue(actual_result)
+
+    def test_login1(self):
+        login = Login()
+        actual_result = login.login_test('a', 'v')
+        self.assertFalse(actual_result)
+
+    """Function of register verify testing"""
+    def test_register(self):
+        r = Register()
+        actual_result = r.insert("z", "z", "z", "z", "1", "e")
+        self.assertTrue(actual_result)
+
+    """Function of list view testing"""
+    def ListBillView(self):
+        l = ListBillView()
+        actual_result = l.list_bill_details()
+        self.assertTrue(actual_result)
+
+    """function of search testing"""
+    def search(self):
+        s = ListBillView()
+        actual_result = s.search()
+        self.assertTrue(actual_result)
+

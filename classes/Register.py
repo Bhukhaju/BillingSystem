@@ -1,7 +1,9 @@
+"""Import connector file and tkinter"""
 from classes.Connection import Connector
 from tkinter import messagebox
 
 
+"""Create Class"""
 class Register:
     def __init__(self):
         self.db = Connector()
@@ -14,16 +16,14 @@ class Register:
         self.__phone = ''
         self.__email = ''
 
-    # def register(self)
-
+    """Function for Register of Employee"""
     def register_user(self, username, password, fullname, address, phone, email):
-        # self.__window = window
-        self.__username = username.get()
-        self.__password = password.get()
-        self.__fullname = fullname.get()
-        self.__address = address.get()
-        self.__phone = phone.get()
-        self.__email = email.get()
+        self.__username = username
+        self.__password = password
+        self.__fullname = fullname
+        self.__address = address
+        self.__phone = phone
+        self.__email = email
         if self.__username == '' or self.__password == '' or self.__fullname == '' or self.__address == '' or self.__phone == '' or self.__email == '':
             messagebox.showerror('Error', 'All fields are required')
         else:
@@ -38,21 +38,23 @@ class Register:
                 messagebox.showwarning('Error', 'Email already exists')
             else:
                 try:
-                    result = self.__query.execute('INSERT INTO users ( username, password, name, address, phone, email) VALUES (%s, %s, %s, %s, %s, %s)', (self.__username, self.__password, self.__fullname, self.__address, self.__phone, self.__email))
-                    if result > 0:
-                        self.db.my_connection.commit()
+                    if self.insert(self.__username, self.__password, self.__fullname, self.__address, self.__phone, self.__email):
                         messagebox.showinfo('Success', 'Register Successfully')
                     else:
                         messagebox.showerror('Error', 'Something is wrong please try again or contact admin')
                 except Exception as e:
                     messagebox.showerror('Error', 'Something is wrong please try again or contact admin')
         self.db.my_connection.close()
-        # self.clear()
 
-    # def clear(self):
-    #     self.__username.set('')
-    #     self.__password.set('')
-    #     self.__fullname.set('')
-    #     self.__address.set('')
-    #     self.__phone.set('')
-    #     self.__email.set('')
+
+    """Function for insert into database"""
+    def insert(self, username, password, fullname, address, phone, email):
+        result = self.__query.execute(
+            'INSERT INTO users ( username, password, name, address, phone, email) VALUES (%s, %s, %s, %s, %s, %s)',
+            (username, password, fullname, address, phone, email))
+        if result > 0:
+            self.db.my_connection.commit()
+            return True
+        else:
+            return False
+

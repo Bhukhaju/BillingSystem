@@ -1,16 +1,15 @@
+"""Import tkinter and connection file"""
 from tkinter import *
 from classes.Connection import Connector
 
-
+""""Create class"""
 class Bill_Generate:
-
     def __init__(self, invoice_number):
+        """Create Connection object"""
         self.db = Connector()
         self.__query = self.db.my_cursor
-
-        # Create window object
+        """Create window object"""
         self.window = Tk()
-
         self.window.title('Bill Generate')
         self.window.geometry('650x600')
 
@@ -18,14 +17,13 @@ class Bill_Generate:
         self.bill_details = ''
 
 
-        # Bill_System
+        """Label of billing"""
         self.bill_system = Label(self.window, text='Bill System', font=('bold', 14))
         self.bill_system.place(x=260, y=20)
 
-        # Frame
+        """Frame for bill generate"""
         self.bill_generate = Frame(self.window, bd=5, relief=RIDGE)
         self.bill_generate.place(x=15, y=15, width=620, height=575)
-
         self.scrol_y = Scrollbar(self.bill_generate, orient=VERTICAL)
         self.txtarea = Text(self.bill_generate,yscrollcommand=self.scrol_y.set)
         self.scrol_y.pack(side=RIGHT, fill=Y)
@@ -34,6 +32,7 @@ class Bill_Generate:
         self.get_bill_details()
         self.bill_view()
 
+    """Function for bill view and calculate part"""
     def bill_view(self):
         grand_total = 0
         self.txtarea.insert(END,"\t\t\t\tWelcome")
@@ -55,17 +54,13 @@ class Bill_Generate:
         self.txtarea.insert(END, "\n Sign By: \t\t\t\t\t\t\t Total: "+str(grand_total))
         self.txtarea.insert(END, "\n=========================================================================")
 
+    """Function for bill details"""
     def get_bill_details(self):
-        print(self.invoice_number)
         results = self.__query.execute(
-            "SELECT b.phone_number, b.date_time, bd.particular, bd.qty, bd.rate, c.name, c.address FROM bills as b INNER JOIN customer as c on b.phone_number = c.phone_number INNER JOIN bill_details AS bd on b.invoice_number = bd.invoice_number where b.invoice_number = %s",
+            "SELECT b.phone_number, b.date_time, bd.particular, bd.qty, bd.rate, c.name, c.address FROM bills as b "
+            "INNER JOIN customer as c on b.phone_number = c.phone_number INNER JOIN bill_details AS bd on b.invoice_number "
+            "= bd.invoice_number where b.invoice_number = %s",
             self.invoice_number
         )
-        print(results)
         if results > 0:
             self.bill_details = self.__query.fetchall()
-
-
-#
-# Bill_Generate(4)
-# mainloop()

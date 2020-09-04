@@ -1,8 +1,10 @@
+"""Import connector file, tkinter and billing file"""
 from classes.Connection import Connector
 from tkinter import messagebox
 from View.Billing import BillingView
 
 
+'''Create Class '''
 class Login:
     def __init__(self):
         self.db = Connector()
@@ -11,8 +13,8 @@ class Login:
         self.__username = 'username'
         self.__password = 'password'
 
+    '''Function for execute query'''
     def login_test(self, username, password):
-
         if self.__username == '' or self.__password == '':
             return False
         else:
@@ -22,6 +24,7 @@ class Login:
             else:
                 return False
 
+    '''Function for login verify'''
     def login_verify(self, window, username, password):
 
         self.__window = window
@@ -32,29 +35,3 @@ class Login:
             BillingView()
         else:
             messagebox.showerror('Error', ' Invalid Username or Password')
-
-        # if self.__username == '' or self.__password == '':
-        #     # messagebox.showwarning('Error', 'Username and Password required')
-        #     return False
-        # else:
-        #     result = self.__query.execute('select * from users where username = %s and password = %s', (username, password))
-        #     # print(result)
-        #     if result > 0:
-        #         # self.__window.destroy()
-        #         # BillingView()
-        #         return True
-        #     else:
-        #         # messagebox.showerror('Error', ' Invalid Username or Password')
-        #         return False
-
-
-
-
-"""
-Documentation
-Class name: Login
-Public method : login_verify(window, username, password)
-eg
-login=Login()
-login.login_verify(window, username, password)
-"""

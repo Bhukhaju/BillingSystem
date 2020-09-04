@@ -1,6 +1,9 @@
+"""Import MySQL for connect into database"""
 import pymysql
 
 
+"""Create class for connect into MySQL"""
+"""Exceptional Handling"""
 class Connector:
     def __init__(self):
         try:
